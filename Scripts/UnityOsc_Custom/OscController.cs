@@ -27,7 +27,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityOSC;
 
-public class OscControl : MonoBehaviour {
+public class OscController : MonoBehaviour {
 
 	public enum OscMode { SEND, RECEIVE, SEND_RECEIVE };
 	public OscMode oscMode = OscMode.SEND;

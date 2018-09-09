@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class OscFaceScale : MonoBehaviour {
 
-    public OscControl osc;
+    public OscController osc;
     public float speed = 0.5f;
     public float inputXmin = 0f;
     public float inputXmax = 1f;
