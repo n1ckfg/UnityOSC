@@ -27,7 +27,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityOSC;
 
-public class oscControl : MonoBehaviour {
+public class ExampleControl : MonoBehaviour {
 
     private OSCServer myServer;
 
