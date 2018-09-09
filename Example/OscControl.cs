@@ -27,10 +27,12 @@ using System.Collections.Generic;
 using System.Text;
 using UnityOSC;
 
-public class OscController : MonoBehaviour {
+public class OscControl : MonoBehaviour {
 
 	public enum OscMode { SEND, RECEIVE, SEND_RECEIVE };
 	public OscMode oscMode = OscMode.SEND;
+    public enum MsgMode { P5, OF };
+    public MsgMode msgMode = MsgMode.OF;
     public string outIP = "127.0.0.1";
     public int outPort = 9999;
     public int inPort = 9998;
@@ -38,9 +40,12 @@ public class OscController : MonoBehaviour {
 	public int rxBufferSize = 1024;
 	public int sleepMs = 10;
 
-	[HideInInspector] public Vector3 pos = Vector3.zero;
+    [HideInInspector] public Vector3 pos1 = Vector3.zero;
+    [HideInInspector] public Vector3 pos2 = Vector3.zero;
+    private const string name1 = "RPi_180219175326360";
+    private const string name2 = "RPi_180219180801264";
 
-	private OSCServer myServer;
+    private OSCServer myServer;
 
     // Script initialization
     void Start() {
@@ -86,12 +91,38 @@ public class OscController : MonoBehaviour {
     private void receivedOSC(OSCPacket pckt) {
         if (pckt == null) { Debug.Log("Empty packet"); return; }
 
-		OSCMessage msg = pckt.Data[0] as UnityOSC.OSCMessage;
-		pos = new Vector2((float) msg.Data[2], (float) msg.Data[3]);
-		pos.x = -pos.x;
-		Debug.Log(msg.Data[0] + ", " + msg.Data[1] + ", " + msg.Data[2] + ", " + msg.Data[3] + ", " + msg.Data[4]);
+        if (msgMode == MsgMode.OF) {
+            OSCMessage msg = pckt.Data[0] as UnityOSC.OSCMessage;
 
-		/*
+            float x = (float) msg.Data[2];
+            float y = (float) msg.Data[3];
+            float z = 0f;
+
+            switch ((string) msg.Data[0]) {
+                case (name1):
+                    pos1 = new Vector3(x, -y, z);
+                    break;
+                case (name2):
+                    pos2 = new Vector3(x, -y, z);
+                    break;
+            }
+        } else if (msgMode == MsgMode.P5) {
+            OSCMessage msg = pckt.Data[0] as UnityOSC.OSCMessage;
+
+            float x = (float) pckt.Data[2];
+            float y = (float) pckt.Data[3];
+            float z = 0f;
+
+            switch ((string) pckt.Data[0]) {
+                case (name1):
+                    pos1 = new Vector3(x, -y, z);
+                    break;
+                case (name2):
+                    pos2 = new Vector3(x, -y, z);
+                    break;
+            }
+        }
+        /*
         // Origin
         int serverPort = pckt.server.ServerPort;
 
