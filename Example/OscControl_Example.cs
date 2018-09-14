@@ -31,7 +31,9 @@ public class OscControl_Example : MonoBehaviour {
 
 	public enum OscMode { SEND, RECEIVE, SEND_RECEIVE };
 	public OscMode oscMode = OscMode.RECEIVE;
-    public string outIP = "127.0.0.1";
+	public enum MsgMode { P5, OF };
+	public MsgMode msgMode = MsgMode.OF;
+	public string outIP = "127.0.0.1";
     public int outPort = 9999;
     public int inPort = 9998;
 
@@ -80,16 +82,27 @@ public class OscControl_Example : MonoBehaviour {
 		}
     }
 
-    // Process OSC message
-    private void receivedOSC(OSCPacket pckt) {
-        if (pckt == null) { 
+	// Process OSC message
+	private void receivedOSC(OSCPacket pckt)
+	{
+		if (pckt == null) {
 			Debug.Log("Empty packet");
-			return; 
+			return;
 		}
 
-		//float x = (float) pckt.Data[0];
+		float x = 0f;
 
-		Debug.Log(pckt.Data[1]);
+		switch (msgMode) {
+			case (MsgMode.P5):
+				//x = (float) pckt.Data[0];
+				Debug.Log(pckt.Data[0]);
+				break;
+			case (MsgMode.OF):
+				OSCMessage msg = pckt.Data[0] as UnityOSC.OSCMessage;
+				//x = (float) msg.Data[0];
+				Debug.Log(msg.Data[0]);
+				break;
+		}
 
         /*
         // Origin
