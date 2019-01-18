@@ -27,12 +27,12 @@ using System.Collections.Generic;
 using System.Text;
 using UnityOSC;
 
-public class OscControl_Example : MonoBehaviour {
+public class OscControlExample : MonoBehaviour {
 
 	public enum OscMode { SEND, RECEIVE, SEND_RECEIVE };
 	public OscMode oscMode = OscMode.RECEIVE;
-	public enum MsgMode { P5, OF };
-	public MsgMode msgMode = MsgMode.OF;
+	public enum MsgMode { MAX_P5 , OF };
+	public MsgMode msgMode = MsgMode.MAX_P5;
 	public string outIP = "127.0.0.1";
     public int outPort = 9999;
     public int inPort = 9998;
@@ -90,16 +90,19 @@ public class OscControl_Example : MonoBehaviour {
 			return;
 		}
 
-		float x = 0f;
+        //float x = 0f;
+        string s = "";
 
 		switch (msgMode) {
-			case (MsgMode.P5):
-				//x = (float) pckt.Data[0];
+			case (MsgMode.MAX_P5):
+                //x = (float) pckt.Data[0];
+                s = (string) pckt.Data[0];
 				Debug.Log(pckt.Data[0]);
 				break;
 			case (MsgMode.OF):
 				OSCMessage msg = pckt.Data[0] as UnityOSC.OSCMessage;
-				//x = (float) msg.Data[0];
+                //x = (float) msg.Data[0];
+                s = (string) msg.Data[0];
 				Debug.Log(msg.Data[0]);
 				break;
 		}
