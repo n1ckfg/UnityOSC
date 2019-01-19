@@ -157,7 +157,7 @@ MonoBehaviour:
   msgMode: 0
   outIP: 127.0.0.1
   outPort: 9999
-  inPort: 7400
+  inPort: 7110
 --- !u!1 &749902361
 GameObject:
   m_ObjectHideFlags: 0
