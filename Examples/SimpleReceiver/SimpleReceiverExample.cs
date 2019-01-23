@@ -5,20 +5,20 @@ using UnityOSC;
 
 public class SimpleReceiverExample : MonoBehaviour {
 	
-	private OSCReciever reciever;
+	private OSCReceiver Receiver;
 
 	public int port = 8338;
 	
 	// Use this for initialization
 	void Start () {
-		reciever = new OSCReciever();
-		reciever.Open(port);
+		Receiver = new OSCReceiver();
+		Receiver.Open(port);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if(reciever.hasWaitingMessages()){
-			OSCMessage msg = reciever.getNextMessage();
+		if(Receiver.hasWaitingMessages()){
+			OSCMessage msg = Receiver.getNextMessage();
 			Debug.Log(string.Format("message received: {0} {1}", msg.Address, DataToString(msg.Data)));
 		}
 	}
