@@ -42,8 +42,9 @@ public class SimpleSenderExample : MonoBehaviour {
 
     // Reads all the messages received between the previous update and this one
     void Update() {
-        float randVal = UnityEngine.Random.Range(0f, 0.7f);
-        OSCHandler.Instance.SendMessageToClient("myClient", "/1/fader1", randVal);
+        List<object> msg = new List<object>();
+        msg.Add(UnityEngine.Random.Range(0f, 0.7f));
+        OSCHandler.Instance.SendMessageToClient("myClient", "/1/fader1", msg);
     }
 
 }
