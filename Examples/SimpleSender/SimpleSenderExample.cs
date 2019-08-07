@@ -33,15 +33,12 @@ public class SimpleSenderExample : MonoBehaviour {
     public int outPort = 9999;
     private OSCServer myServer;
 
-    // Script initialization
-    void Start() {
-        // init OSC
+    private void Start() {
         OSCHandler.Instance.Init();
         OSCHandler.Instance.CreateClient("myClient", IPAddress.Parse(outIP), outPort);
     }
 
-    // Reads all the messages received between the previous update and this one
-    void Update() {
+    private void Update() {
         List<object> msg = new List<object>();
         msg.Add(UnityEngine.Random.Range(0f, 0.7f));
         OSCHandler.Instance.SendMessageToClient("myClient", "/1/fader1", msg);
