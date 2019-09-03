@@ -31,6 +31,7 @@ public class SimpleSenderExample : MonoBehaviour {
 
     public string outIP = "127.0.0.1";
     public int outPort = 9999;
+    public string channel = "/1/fader1";
     private OSCServer myServer;
 
     private void Start() {
@@ -41,7 +42,7 @@ public class SimpleSenderExample : MonoBehaviour {
     private void Update() {
         List<object> msg = new List<object>();
         msg.Add(UnityEngine.Random.Range(0f, 0.7f));
-        OSCHandler.Instance.SendMessageToClient("myClient", "/1/fader1", msg);
+        OSCHandler.Instance.SendMessageToClient("myClient", channel, msg);
     }
 
 }

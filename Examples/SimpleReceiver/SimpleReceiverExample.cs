@@ -9,26 +9,22 @@ public class SimpleReceiverExample : MonoBehaviour {
 
 	public int port = 8338;
 	
-	// Use this for initialization
-	void Start () {
+	private void Start() {
 		receiver = new OSCReceiver();
 		receiver.Open(port);
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		if(receiver.hasWaitingMessages()){
+	private void Update() {
+		if (receiver.hasWaitingMessages()) {
 			OSCMessage msg = receiver.getNextMessage();
 			Debug.Log(string.Format("message received: {0} {1}", msg.Address, DataToString(msg.Data)));
 		}
 	}
 	
-	private string DataToString(List<object> data)
-	{
+	private string DataToString(List<object> data) {
 		string buffer = "";
 		
-		for(int i = 0; i < data.Count; i++)
-		{
+		for (int i = 0; i < data.Count; i++) {
 			buffer += data[i].ToString() + " ";
 		}
 		
@@ -36,4 +32,5 @@ public class SimpleReceiverExample : MonoBehaviour {
 		
 		return buffer;
 	}
+
 }

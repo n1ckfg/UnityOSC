@@ -69,7 +69,7 @@ public class DebugOscControl : MonoBehaviour {
 	void Update() {
 		if (oscMode == OscMode.RECEIVE || oscMode == OscMode.SEND_RECEIVE) {
             // Read received messages
-            Debug.Log("UNITY OSC: Received " + OSCHandler.Instance.packets.Count + " packets.");
+            if (OSCHandler.Instance.packets.Count > 0) Debug.Log("UNITY OSC: Received " + OSCHandler.Instance.packets.Count + " packets.");
 			for (var i = 0; i < OSCHandler.Instance.packets.Count; i++) {
 				// Process OSC
 				receivedOSC(OSCHandler.Instance.packets[i]);
